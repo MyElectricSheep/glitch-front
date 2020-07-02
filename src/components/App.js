@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useGlitch } from '../client/useClient'
 import { Box, Grommet, ResponsiveContext } from "grommet";
 
 // Custom components imports
 import DesktopSideBar from "./DesktopSideBar";
 import MobileSideBar from "./MobileSideBar";
 import TopMenu from "./TopMenu";
+
+// Contexts imports
+import UserContext from "../contexts/UserContext"
 
 const theme = {
   global: {
@@ -44,9 +48,24 @@ const theme = {
 };
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
   const [showSidebar, setShowSidebar] = useState(false);
   const handleSideBar = () => setShowSidebar(!showSidebar);
+
+  const [{ data, loading, error }] = useGlitch(
+    '/auth/me'
+  )
+
+  useEffect(() => {
+    if (data) setCurrentUser(data)
+  }, [data])
+ 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+
   return (
+    <UserContext.Provider value={{currentUser, setCurrentUser}}>
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
         {(size) => (
@@ -66,6 +85,7 @@ const App = () => {
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
+    </UserContext.Provider>
   );
 };
 
