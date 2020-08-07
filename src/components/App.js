@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useGlitch } from '../client/useClient'
+import AppBody from "./AppBody"
+// import { useGlitch } from '../client/useClient'
+import { useUser } from '../client/Client'
 import { Box, Grommet, ResponsiveContext } from "grommet";
 
 // Custom components imports
@@ -8,7 +10,13 @@ import MobileSideBar from "./MobileSideBar";
 import TopMenu from "./TopMenu";
 
 // Contexts imports
-import UserContext from "../contexts/UserContext"
+import { UserContext } from "../contexts/UserContext"
+import { GhostContext } from "../contexts/GhostContext"
+import { ChoicesContext } from "../contexts/ChoicesContext"
+
+// useQuery
+import { useQuery } from "react-query"
+import { fetchRepo } from "../queries/queries"
 
 const theme = {
   global: {
@@ -48,24 +56,43 @@ const theme = {
 };
 
 const App = () => {
+  // console.log(useQuery)
+
+  // const { isLoading, isError, data } = useQuery("repoData", fetchRepo);
+
+  // if (isLoading) console.log('wesh load')
+  // if (isError) console.log('wesh error')
+  // if (data) console.log(data)
+
   const [currentUser, setCurrentUser] = useState(null);
 
   const [showSidebar, setShowSidebar] = useState(false);
   const handleSideBar = () => setShowSidebar(!showSidebar);
 
-  const [{ data, loading, error }] = useGlitch(
-    '/auth/me'
-  )
+  // const [{ data, loading, error }] = useGlitch(
+  //   '/auth/me'
+  // )
+
+  const { user, loading, error } = useUser()
+
+  const [ghostMood, setGhostMood] = useState('excited')
+  // sad, shocked, happy, blissful, lovestruck, excited, ko
+
+  const [choices, setChoices] = useState({
+    intro: false
+  })
 
   useEffect(() => {
-    if (data) setCurrentUser(data)
-  }, [data])
+    if (user) setCurrentUser(user)
+  }, [user])
  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
   return (
     <UserContext.Provider value={{currentUser, setCurrentUser}}>
+    <GhostContext.Provider value={{ghostMood, setGhostMood}}>
+    <ChoicesContext.Provider value={{choices, setChoices}}>
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
         {(size) => (
@@ -73,7 +100,7 @@ const App = () => {
             <TopMenu onHandleSideBar={handleSideBar} />
             <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
               <Box flex align="center" justify="center">
-                app body
+                <AppBody />
               </Box>
               {!showSidebar || size !== "small" ? (
                 <DesktopSideBar showSidebar={showSidebar} />
@@ -85,6 +112,8 @@ const App = () => {
         )}
       </ResponsiveContext.Consumer>
     </Grommet>
+    </ChoicesContext.Provider>
+    </GhostContext.Provider>
     </UserContext.Provider>
   );
 };

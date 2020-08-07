@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Box, Collapsible } from "grommet";
-import userContext from "../contexts/UserContext"
+import { useUserContext } from "../contexts/UserContext"
 
 const DesktopSideBar = ({ showSidebar }) => {
-  const userData = useContext(userContext)
-  console.log(userData)
+  const userData = useUserContext()
+  // console.log(userData)
   return (
     <Collapsible direction="horizontal" open={showSidebar}>
       <Box
