@@ -12,3 +12,10 @@
     cursor: pointer;
     border: 1px dotted black
 }
+
+@media (max-width: 980px) {
+    .challengeBox {
+        border: 1px dotted black;
+        margin-bottom: 1em; 
+    }
+}
