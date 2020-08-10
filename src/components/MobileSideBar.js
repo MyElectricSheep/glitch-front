@@ -11,6 +11,7 @@ const MobileSideBar = ({ onHandleSideBar }) => {
         justify="end"
         align="center"
         direction="row"
+        style={{ zIndex: "2" }}
       >
         <Button icon={<FormClose />} onClick={() => onHandleSideBar(false)} />
       </Box>

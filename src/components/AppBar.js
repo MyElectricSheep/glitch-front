@@ -10,7 +10,7 @@ const AppBar = (props) => (
     background="colorPrimary0"
     pad={{ left: "medium", right: "small", vertical: "small" }}
     elevation="medium"
-    style={{ zIndex: "1" }}
+    style={{ zIndex: "2" }}
     {...props}
   />
 );

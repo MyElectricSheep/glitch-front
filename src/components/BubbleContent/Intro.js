@@ -1,10 +1,13 @@
 import React from "react";
 import { Button } from "grommet";
-import { useChoicesContext } from "../contexts/ChoicesContext"
+import { useChoicesContext } from "../../contexts/ChoicesContext"
+import { useHistory } from 'react-router-dom';
 
 const Intro = () => {
+  const history = useHistory()
 const { setChoices } = useChoicesContext()
 const handleChoice = () => {
+    history.push("/intro/challenge")
     setChoices({ intro: true })
 }
   return (
@@ -16,7 +19,7 @@ const handleChoice = () => {
         are you up for the challenge?
       </p>
       <div className="buttons-container">
-        <Button secondary label="No" color="orange" size="large" />
+        {/* <Button secondary label="No" color="orange" size="large" /> */}
         <Button
           primary
           label="Let's go!"

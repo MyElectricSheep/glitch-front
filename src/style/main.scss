@@ -8,6 +8,14 @@ html {
   *:after {
 	box-sizing: inherit;
   }
+
+  .container-main-body {
+	// position: absolute;
+	// top: 0;
+	// left: 0;
+	width: 100%;
+	z-index: 1;
+  }
   
   figure {
 	margin: 0;
@@ -18,7 +26,7 @@ html {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: -1;
+	z-index: -10;
   
 	height: 100%;
 	width: 100%;
@@ -31,8 +39,10 @@ html {
   
   // Fog
   .fog {
-	position: relative;
-	z-index: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -9;
   
 	height: 100vh;
 	width: 100vw;
@@ -76,55 +86,11 @@ html {
 	100% { transform: translate3d(-200vw, 0, 0); }
   }
 
-.bubble {
-	// height: 250px;
-	width: 40%;
-    min-width: 200px;
-    padding: 1em;
-    text-align: justify;
-	background: #E0E4E8;
-	display: block;
-	margin: 0 auto;
-	border-radius: 20px;
-	// margin-top: 50px;
-	font-size: 1em;
-	overflow: auto;
-}
-
-@media (max-width: 980px) {
-	.bubble {
-		height: 300px;
-		width: 60%;
-	}
-}
-
-@media (max-width: 560px) {
-	.bubble {
-		width: 90%;
-	}
-}
-
-
-.pointer {
-	height: 40px;
-	width: 40px;
-	background: #E0E4E8;
-	margin: 0 auto;
-	transform: rotate(45deg);
-	border-radius: 0 0 12px 0;
-	margin-top: -22px;
-	position: relative;
-    left: calc(0.5vw - 50px);
-    z-index: -1;
-}
 
 .container-ghost {
     display: flex;
-    justify-content: center;
-}
-
-.container-bubble {
-	padding-top: 5em;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttons-container {

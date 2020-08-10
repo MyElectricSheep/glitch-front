@@ -1,0 +1,14 @@
+.flexContainer {
+    /* height: 100vh; */
+    /* overflow: auto; */
+    /* width: 100%; */
+}
+
+.challengeBox {
+    /* border: 1px solid magenta; */
+}
+
+.challengeBox:hover {
+    cursor: pointer;
+    border: 1px dotted black
+}

@@ -17,6 +17,7 @@ import { ChoicesContext } from "../contexts/ChoicesContext"
 // useQuery
 import { useQuery } from "react-query"
 import { fetchRepo } from "../queries/queries"
+import { Switch, Route } from "react-router-dom";
 
 const theme = {
   global: {
@@ -100,7 +101,11 @@ const App = () => {
             <TopMenu onHandleSideBar={handleSideBar} />
             <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
               <Box flex align="center" justify="center">
-                <AppBody />
+                <Switch>
+                  <Route path="/intro">
+                     <AppBody />
+                  </Route>
+                </Switch>
               </Box>
               {!showSidebar || size !== "small" ? (
                 <DesktopSideBar showSidebar={showSidebar} />
